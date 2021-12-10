@@ -53,7 +53,7 @@ volume you need to add to the trough).
 
 ### Protocol Steps
 1. Pause: check the plate/master mix are in place.
-2. Pick up tips and transfer master mix from trough to all columns of the plate in slot 5.
+2. Pick up tips and transfer master mix to all columns of the plate in slot 5.
 3. Drop tips in waste bin.
 4. Pause until ready to prepare the following plate.
 

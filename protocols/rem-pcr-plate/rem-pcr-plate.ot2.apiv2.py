@@ -96,9 +96,14 @@ def run(protocol: protocol_api.ProtocolContext):
 
     # protocol: distribute master mixes
     for mm in range(start,no_plates+1):
-        protocol.pause(
-            "When you press resume, the master mix will be dispensed into the next plate. Ensure this plate is in position (in slot 5) and that at least {}uL of master mix for this plate has been added to trough {}.".format(
-                (96*vol_dispense)+275, mm)
-        )
+        if source == "trough":
+            protocol.pause(
+                "When you press resume, the master mix will be dispensed into the next plate. Ensure this plate is in position (in slot 5) and that at least {}uL of master mix for this plate has been added to trough {}.".format(
+                    (96*vol_dispense)+297, mm)
+            )
+        else:
+            protocol.pause(
+                "When you press resume, the master mix will be dispensed into the next plate. Ensure this plate is in position (in slot 5) and that at least {}uL of master mix for this plate has been added to each well of column {}.".format(
+                    (8*vol_dispense)+10, mm)
         dispense_mm(vol_dispense, mm, source)
 

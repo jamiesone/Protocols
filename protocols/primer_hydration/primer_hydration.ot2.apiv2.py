@@ -38,7 +38,8 @@ def run(protocol: protocol_api.ProtocolContext):
     # A1,A1,546
     # '''
     # csv parsing
-    csv_data = csv_raw.splitlines()[1:]  # Discard the blank first line.
+    # csv_data = csv_raw.splitlines()[1:]  # Discard the blank first line.
+    csv_data = csv_raw.splitlines()
     field_names = ["source_well", "destination_well", "transfer_volume"]
     csv_reader = csv.DictReader(csv_data, fieldnames=field_names)
 
@@ -60,6 +61,7 @@ def run(protocol: protocol_api.ProtocolContext):
                     {source_well} should not surpass {max_cum_v}.\
                     Add more falcon tubes and modify csv."
             )
+    csv_reader = csv.DictReader(csv_data, fieldnames=field_names)
 
     # start protocol
     p300_multi.pick_up_tip(tiprack_300["H1"])
@@ -71,12 +73,13 @@ def run(protocol: protocol_api.ProtocolContext):
         while v_left > 0:
             transfer_volume = min(p300_multi.max_volume, v_left)
             v_left -= transfer_volume
-            p300_multi.move_to(h_falcon.wells(source_well)).top()
+            # p300_multi.move_to(h_falcon.wells(source_well)).top()
+            p300_multi.move_to(h_falcon.wells_by_name()[source_well].top())
             p300_multi.aspirate(
-                transfer_volume, h_falcon.wells(source_well).top(z=-40)
+                transfer_volume, h_falcon.wells_by_name()[source_well].top(z=-40)
             )
 
-            p300_multi.move_to(h_tubes.wells(destination_well).top())
+            p300_multi.move_to(h_tubes.wells_by_name()[destination_well].top())
             p300_multi.dispense(
                 transfer_volume,
                 h_tubes.wells_by_name()[destination_well].top(z=-15),

@@ -95,7 +95,7 @@ def run(protocol: protocol_api.ProtocolContext):
         p10_multi.drop_tip()
 
     # protocol: distribute master mixes
-    for mm in range(start,no_plates+1):
+    for mm in range(start,start + no_plates):
         protocol.pause(
             "When you press resume, the master mix will be dispensed into the next plate. Ensure this plate is in position (in slot 5) and that at least {}uL of master mix for this plate has been added to trough {}.".format(
                 (96*vol_dispense)+275, mm)
